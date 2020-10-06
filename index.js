@@ -13,7 +13,7 @@ Use *toJson* functions to turn response objects into JSON before sending respons
 Quicktype file was created from source code in the pluginmessages directory with the following command
 quicktype -l javascript --src-lang schema schema/*.json > lang/quicktype.js
 
-Can copy and paste quicktype.js into this directory
+Can copy and paste quicktype.js into this directory. Remove this if quicktype is not desired.
 */
 
 const Convert = require("./quicktype")
