@@ -202,7 +202,13 @@ function onQueryIntervalsMessage(response, message) {
   const endTime = onQueryIntervalsMessage.endTimet
   const granularity = onQueryIntervalsMessage.granularityInSeconds
 
-  const numIntervals = 1 + (endTime - startTime) / granularity
+  let numIntervals
+
+  if(granularity === 0 || (endTime - startTime) === 0) numIntervals = 1
+  else {
+    numIntervals = 1 + (endTime - startTime) / granularity
+  }
+
   const rIds = onQueryIntervalsMessage.rIds
 
   let reportIntervals = []
