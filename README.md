@@ -1,10 +1,12 @@
 # Sample middleware
 
-This is a minimal example implementation of a middleware in nodejs for the default Plaid plugin that will provide enough functionality for OpenADR certification.
+This is a minimal nodejs implementation of a middleware for the default Plaid plugin that will provide enough functionality for OpenADR certification, once connected to your platform.
 
-The goal is to provide a template and/or kernel for an implementation into your platform. It does not include any security, error checking, etc. 
+The goal is to provide a template and/or kernel for an implementation into your platform. It does not include any security, error checking, etc. It does not have any dependencies, and can be run with `node index.js`.
 
 It sets up a simple http server to receive POST messages from Plaid. It parses the message type and directs to a response function accordingly. The response function creates a properly formatted JSON response (where needed) and sends it back to the plugin.
+
+By default, it will require the quicktype file (see section below) to run. 
 
 ## Reporting
 
@@ -30,5 +32,6 @@ Once it is added, from the plugin messages schema directory (hosted in `oadr/oad
 
 `quicktype -l javascript --src-lang schema schema/*.json > lang/quicktype.js`
 
-Add the quicktype file into this directory.
+Copy the quicktype file into this directory prior to running.
 
+Quicktype functionality is imported as the `Convert` library into the index.js file. If quicktype is not desired, remove the import and replace the `toJson` functions with `JSON.stringify()` instead.

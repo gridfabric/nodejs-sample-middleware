@@ -196,14 +196,31 @@ with dummy data (0 data is fine for compliance)
 
 function onQueryIntervalsMessage(response, message) {
   const onQueryIntervalsMessage = message.onQueryIntervalsMessage
-  const reportIntervals = onQueryIntervalsMessage.rIds.map((rId) => {
-    return {
-      dataQuality: "Quality Good - Non Specific",
-      dtStartTimet: onQueryIntervalsMessage.startTimet,
-      rId,
-      value: 0,
+  console.log(onQueryIntervalsMessage)
+
+  const startTime = onQueryIntervalsMessage.startTimet
+  const endTime = onQueryIntervalsMessage.endTimet
+  const granularity = onQueryIntervalsMessage.granularityInSeconds
+
+  const numIntervals = 1 + (endTime - startTime) / granularity
+  const rIds = onQueryIntervalsMessage.rIds
+
+  let reportIntervals = []
+  let dtStartTimet = startTime
+
+  for(let i = 0; i < numIntervals; i++){
+    for(let j = 0; j < rIds.length; j++){
+      const rId = rIds[j]
+      reportIntervals.push({
+        dataQuality: "Quality Good - Non Specific",
+        dtStartTimet,
+        rId,
+        value: 0,
+      })
     }
-  })
+    dtStartTimet += granularity
+  }
+
 
   const queryIntervalsResponse = {
     onQueryIntervalsResponseMessage: {
